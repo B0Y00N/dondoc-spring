@@ -1,0 +1,36 @@
+package com.example.dondocStudy.controller;
+
+import com.example.dondocStudy.dto.RecordDto;
+import com.example.dondocStudy.repository.DataRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.io.IOException;
+import java.util.List;
+
+@Tag(name = "Record API", description = "거래 내역 데이터 조회 API")
+@RestController
+@RequestMapping("/api") // 공통 경로 설정
+public class RecordController {
+
+    private final DataRepository dataRepository;
+
+    public RecordController(DataRepository dataRepository) {
+        this.dataRepository = dataRepository;
+    }
+
+    @Operation(summary = "카테고리 목록 조회")
+    @GetMapping("/categories")
+    public List<RecordDto.CategoryInfo> getAllCategories() throws IOException {
+        return dataRepository.loadAllData().getCategories();
+    }
+
+    @Operation(summary = "가계부 내역 조회")
+    @GetMapping("/records")
+    public List<RecordDto.Info> getAllRecords() throws IOException {
+        return dataRepository.loadAllData().getRecords();
+    }
+}
