@@ -1,4 +1,4 @@
-package com.example.dondocStudy;
+package com.example.dondocStudy.dto;
 
 import lombok.Data;
 import java.util.List;
