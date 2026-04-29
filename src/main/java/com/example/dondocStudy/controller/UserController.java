@@ -1,7 +1,7 @@
 package com.example.dondocStudy.controller;
 
 import com.example.dondocStudy.dto.UserDto;
-import com.example.dondocStudy.repository.DataRepository;
+import com.example.dondocStudy.repository.UserRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,21 +16,21 @@ import java.util.List;
 @RequestMapping("/api/users") // 공통 경로 설정
 public class UserController {
 
-    private final DataRepository dataRepository;
+    private final UserRepository userRepository;
 
-    public UserController(DataRepository dataRepository) {
-        this.dataRepository = dataRepository;
+    public UserController(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Operation(summary = "전체 사용자 조회")
     @GetMapping("")
     public List<UserDto.Info> getAllUsers() throws IOException {
-        return dataRepository.loadAllData().getUsers();
+        return userRepository.findAllUsers().getUsers();
     }
 
     @Operation(summary = "월간 히스토리 조회")
     @GetMapping("/monthly-histories")
     public List<UserDto.MonthlyHistory> getAllMonthlyHistories() throws IOException {
-        return dataRepository.loadAllData().getMonthly_history();
+        return userRepository.findAllUsers().getMonthly_history();
     }
 }

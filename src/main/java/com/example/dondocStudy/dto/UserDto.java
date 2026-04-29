@@ -1,9 +1,16 @@
 package com.example.dondocStudy.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserDto {
+    private List<UserDto.Info> users;
+    private List<UserDto.MonthlyHistory> monthly_history;
+
     @Data
     public static class Info {
         private Long id;
