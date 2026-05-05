@@ -1,36 +1,18 @@
 package com.example.dondocStudy.repository;
 
 import com.example.dondocStudy.dto.FarmDto;
+import lombok.RequiredArgsConstructor;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 @Repository
+@RequiredArgsConstructor
 public class FarmRepository{
     private final JdbcTemplate jdbcTemplate;
-    private final RowMapper<FarmDto.info> infoRowMapper = (rs, rowNum) -> {
-        FarmDto.info info = new FarmDto.info();
-
-        info.setId(rs.getLong("id"));
-        info.setName(rs.getString("name"));
-        info.setCreated_at(rs.getString("created_at"));
-
-        return info;
-    };
-    private final RowMapper<FarmDto.FarmMember> farmMemberRowMapper = (rs, rowNum) -> {
-        FarmDto.FarmMember farmMember = new FarmDto.FarmMember();
-
-        farmMember.setId(rs.getLong("id"));
-        farmMember.setFarm_id(rs.getLong("farm_id"));
-        farmMember.setUser_id(rs.getLong("user_id"));
-        farmMember.setJoined_at(rs.getString("joined_at"));
-
-        return farmMember;
-    };
-
-    public FarmRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
+    private final RowMapper<FarmDto.Info> infoRowMapper = new BeanPropertyRowMapper<>(FarmDto.Info.class);
+    private final RowMapper<FarmDto.FarmMember> farmMemberRowMapper = new BeanPropertyRowMapper<>(FarmDto.FarmMember.class);
 
     public FarmDto findAllFarms() {
         FarmDto farmDto = new FarmDto();

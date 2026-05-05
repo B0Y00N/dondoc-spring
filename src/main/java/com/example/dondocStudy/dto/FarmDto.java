@@ -8,11 +8,11 @@ import java.util.List;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FarmDto {
-    private List<FarmDto.info> farms;
+    private List<Info> farms;
     private List<FarmDto.FarmMember> farm_members;
 
     @Data
-    public static class info {
+    public static class Info {
         private Long id;
         private String name;
         private String created_at;
