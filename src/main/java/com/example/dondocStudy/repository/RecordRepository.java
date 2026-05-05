@@ -7,6 +7,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @RequiredArgsConstructor
 public class RecordRepository {
@@ -14,12 +16,7 @@ public class RecordRepository {
     private final RowMapper<RecordDto.Info> infoRowMapper = new BeanPropertyRowMapper<>(RecordDto.Info.class);
     private final RowMapper<RecordDto.CategoryInfo> categoryInfoRowMapper = new BeanPropertyRowMapper<>(RecordDto.CategoryInfo.class);
 
-    public RecordDto findAllRecords() {
-        RecordDto recordDto = new RecordDto();
+    public List<RecordDto.Info> findAllRecords() { return jdbcTemplate.query("select * from records", infoRowMapper); }
 
-        recordDto.setRecords(jdbcTemplate.query("select * from records", infoRowMapper));
-        recordDto.setCategories(jdbcTemplate.query("select * from categories", categoryInfoRowMapper));
-
-        return recordDto;
-    }
+    public List<RecordDto.CategoryInfo> findAllCategories() { return jdbcTemplate.query("select * from categories", categoryInfoRowMapper); }
 }

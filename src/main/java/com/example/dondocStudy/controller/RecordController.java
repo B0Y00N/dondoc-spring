@@ -21,12 +21,12 @@ public class RecordController {
     @Operation(summary = "카테고리 목록 조회")
     @GetMapping("/categories")
     public List<RecordDto.CategoryInfo> getAllCategories() {
-        return recordRepository.findAllRecords().getCategories();
+        return recordRepository.findAllCategories();
     }
 
     @Operation(summary = "가계부 내역 조회")
     @GetMapping("")
     public List<RecordDto.Info> getAllRecords() {
-        return recordRepository.findAllRecords().getRecords();
+        return recordRepository.findAllRecords();
     }
 }

@@ -21,12 +21,12 @@ public class FarmController {
     @Operation(summary = "전체 농장 조회")
     @GetMapping("")
     public List<FarmDto.Info> getAllFarms() {
-        return farmRepository.findAllFarms().getFarms();
+        return farmRepository.findAllFarms();
     }
 
     @Operation(summary = "농장 멤버 매핑 정보 조회")
     @GetMapping("/members")
     public List<FarmDto.FarmMember> getAllFarmMembers() {
-        return farmRepository.findAllFarms().getFarm_members();
+        return farmRepository.findAllFarmMembers();
     }
 }

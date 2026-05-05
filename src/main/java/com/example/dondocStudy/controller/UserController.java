@@ -21,12 +21,10 @@ public class UserController {
     @Operation(summary = "전체 사용자 조회")
     @GetMapping("")
     public List<UserDto.Info> getAllUsers() {
-        return userRepository.findAllUsers().getUsers();
+        return userRepository.findAllUsers();
     }
 
     @Operation(summary = "월간 히스토리 조회")
     @GetMapping("/monthly-histories")
-    public List<UserDto.MonthlyHistory> getAllMonthlyHistories() {
-        return userRepository.findAllUsers().getMonthly_history();
-    }
+    public List<UserDto.MonthlyHistory> getAllMonthlyHistories() { return userRepository.findAllMonthlyHistories(); }
 }

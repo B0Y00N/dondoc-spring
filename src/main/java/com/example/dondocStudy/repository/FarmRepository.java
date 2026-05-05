@@ -7,6 +7,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @RequiredArgsConstructor
 public class FarmRepository{
@@ -14,12 +16,7 @@ public class FarmRepository{
     private final RowMapper<FarmDto.Info> infoRowMapper = new BeanPropertyRowMapper<>(FarmDto.Info.class);
     private final RowMapper<FarmDto.FarmMember> farmMemberRowMapper = new BeanPropertyRowMapper<>(FarmDto.FarmMember.class);
 
-    public FarmDto findAllFarms() {
-        FarmDto farmDto = new FarmDto();
+    public List<FarmDto.Info> findAllFarms() { return jdbcTemplate.query("select * from farms", infoRowMapper); }
 
-        farmDto.setFarms(jdbcTemplate.query("select * from farms", infoRowMapper));
-        farmDto.setFarm_members(jdbcTemplate.query("select * from farm_members", farmMemberRowMapper));
-
-        return farmDto;
-    }
+    public List<FarmDto.FarmMember> findAllFarmMembers() { return jdbcTemplate.query("select * from farm_members", farmMemberRowMapper); }
 }
