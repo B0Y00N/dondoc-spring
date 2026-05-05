@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
 import java.util.List;
 
 @Tag(name = "Record API", description = "거래 내역 데이터 조회 API")
@@ -24,13 +23,13 @@ public class RecordController {
 
     @Operation(summary = "카테고리 목록 조회")
     @GetMapping("/categories")
-    public List<RecordDto.CategoryInfo> getAllCategories() throws IOException {
+    public List<RecordDto.CategoryInfo> getAllCategories() {
         return recordRepository.findAllRecords().getCategories();
     }
 
     @Operation(summary = "가계부 내역 조회")
     @GetMapping("")
-    public List<RecordDto.Info> getAllRecords() throws IOException {
+    public List<RecordDto.Info> getAllRecords() {
         return recordRepository.findAllRecords().getRecords();
     }
 }

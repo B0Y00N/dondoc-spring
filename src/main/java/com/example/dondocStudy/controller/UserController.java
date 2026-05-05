@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
 import java.util.List;
 
 @Tag(name = "User API", description = "사용자 정보 조회 API")
@@ -24,13 +23,13 @@ public class UserController {
 
     @Operation(summary = "전체 사용자 조회")
     @GetMapping("")
-    public List<UserDto.Info> getAllUsers() throws IOException {
+    public List<UserDto.Info> getAllUsers() {
         return userRepository.findAllUsers().getUsers();
     }
 
     @Operation(summary = "월간 히스토리 조회")
     @GetMapping("/monthly-histories")
-    public List<UserDto.MonthlyHistory> getAllMonthlyHistories() throws IOException {
+    public List<UserDto.MonthlyHistory> getAllMonthlyHistories() {
         return userRepository.findAllUsers().getMonthly_history();
     }
 }
