@@ -1,19 +1,22 @@
 package com.example.dondocStudy.repository;
 
 import com.example.dondocStudy.dto.FarmDto;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.core.io.ClassPathResource;
+import lombok.RequiredArgsConstructor;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.io.IOException;
+import java.util.List;
 
 @Repository
+@RequiredArgsConstructor
 public class FarmRepository{
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final JdbcTemplate jdbcTemplate;
+    private final RowMapper<FarmDto.Info> infoRowMapper = new BeanPropertyRowMapper<>(FarmDto.Info.class);
+    private final RowMapper<FarmDto.FarmMember> farmMemberRowMapper = new BeanPropertyRowMapper<>(FarmDto.FarmMember.class);
 
-    // db.json 파일을 읽어 FarmDto 객체로 변환하는 메서드
-    public FarmDto findAllFarms() throws IOException {
-        ClassPathResource resource = new ClassPathResource("db.json");
-        return objectMapper.readValue(resource.getInputStream(), FarmDto.class);
-    }
+    public List<FarmDto.Info> findAllFarms() { return jdbcTemplate.query("select * from farms", infoRowMapper); }
+
+    public List<FarmDto.FarmMember> findAllFarmMembers() { return jdbcTemplate.query("select * from farm_members", farmMemberRowMapper); }
 }

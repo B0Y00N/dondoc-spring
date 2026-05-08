@@ -1,19 +1,22 @@
 package com.example.dondocStudy.repository;
 
 import com.example.dondocStudy.dto.RecordDto;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.core.io.ClassPathResource;
+import lombok.RequiredArgsConstructor;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.io.IOException;
+import java.util.List;
 
 @Repository
+@RequiredArgsConstructor
 public class RecordRepository {
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final JdbcTemplate jdbcTemplate;
+    private final RowMapper<RecordDto.Info> infoRowMapper = new BeanPropertyRowMapper<>(RecordDto.Info.class);
+    private final RowMapper<RecordDto.CategoryInfo> categoryInfoRowMapper = new BeanPropertyRowMapper<>(RecordDto.CategoryInfo.class);
 
-    // db.json 파일을 읽어 RecordDto 객체로 변환하는 메서드
-    public RecordDto findAllRecords() throws IOException {
-        ClassPathResource resource = new ClassPathResource("db.json");
-        return objectMapper.readValue(resource.getInputStream(), RecordDto.class);
-    }
+    public List<RecordDto.Info> findAllRecords() { return jdbcTemplate.query("select * from records", infoRowMapper); }
+
+    public List<RecordDto.CategoryInfo> findAllCategories() { return jdbcTemplate.query("select * from categories", categoryInfoRowMapper); }
 }
