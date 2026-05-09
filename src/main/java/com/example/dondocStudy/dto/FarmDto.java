@@ -1,29 +1,28 @@
 package com.example.dondocStudy.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
-import java.util.List;
-
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class FarmDto {
-    private List<Info> farms;
-    private List<FarmDto.FarmMember> farm_members;
 
     @Data
     public static class Info {
         private Long id;
         private String name;
-        private String created_at;
+        @JsonProperty("created_at")
+        private String createdAt;
     }
 
     @Data
     public static class FarmMember {
         private Long id;
-        private Long user_id;
-        private Long farm_id;
-        private String joined_at;
+        @JsonProperty("user_id")
+        private Long userId;
+        @JsonProperty("farm_id")
+        private Long farmId;
+        @JsonProperty("joined_at")
+        private String joinedAt;
     }
 }
 
