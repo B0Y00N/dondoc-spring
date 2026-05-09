@@ -1,6 +1,8 @@
 package com.example.dondocStudy.controller;
 
-import com.example.dondocStudy.dto.RecordDto;
+import com.example.dondocStudy.entity.CategoryEntity;
+import com.example.dondocStudy.entity.RecordEntity;
+import com.example.dondocStudy.repository.CategoryRepository;
 import com.example.dondocStudy.repository.RecordRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -17,16 +19,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RecordController {
     private final RecordRepository recordRepository;
+    private final CategoryRepository categoryRepository;
 
     @Operation(summary = "카테고리 목록 조회")
     @GetMapping("/categories")
-    public List<RecordDto.CategoryInfo> getAllCategories() {
-        return recordRepository.findAllCategories();
+    public List<CategoryEntity> getAllCategories() {
+        return categoryRepository.findAll();
     }
 
     @Operation(summary = "가계부 내역 조회")
     @GetMapping("")
-    public List<RecordDto.Info> getAllRecords() {
-        return recordRepository.findAllRecords();
+    public List<RecordEntity> getAllRecords() {
+        return recordRepository.findAll();
     }
 }

@@ -1,6 +1,6 @@
 package com.example.dondocStudy.repository;
 
-import com.example.dondocStudy.entity.FarmEntity;
+import com.example.dondocStudy.entity.MonthlyHistoryEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -11,10 +11,10 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class FarmRepository{
+public class MonthlyHistoryRepository {
     private final JdbcTemplate jdbcTemplate;
 
-    private final RowMapper<FarmEntity> infoRowMapper = new BeanPropertyRowMapper<>(FarmEntity.class);
+    private final RowMapper<MonthlyHistoryEntity> monthlyHistoryRowMapper = new BeanPropertyRowMapper<>(MonthlyHistoryEntity.class);
 
-    public List<FarmEntity> findAll() { return jdbcTemplate.query("select * from farms", infoRowMapper); }
+    public List<MonthlyHistoryEntity> findAll() { return jdbcTemplate.query("select * from monthly_history", monthlyHistoryRowMapper); }
 }

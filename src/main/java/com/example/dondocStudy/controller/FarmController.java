@@ -1,6 +1,8 @@
 package com.example.dondocStudy.controller;
 
-import com.example.dondocStudy.dto.FarmDto;
+import com.example.dondocStudy.entity.FarmEntity;
+import com.example.dondocStudy.entity.FarmMemberEntity;
+import com.example.dondocStudy.repository.FarmMemberRepository;
 import com.example.dondocStudy.repository.FarmRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -17,16 +19,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FarmController {
     private final FarmRepository farmRepository;
+    private final FarmMemberRepository farmMemberRepository;
 
     @Operation(summary = "전체 농장 조회")
     @GetMapping("")
-    public List<FarmDto.Info> getAllFarms() {
-        return farmRepository.findAllFarms();
+    public List<FarmEntity> getAllFarms() {
+        return farmRepository.findAll();
     }
 
     @Operation(summary = "농장 멤버 매핑 정보 조회")
     @GetMapping("/members")
-    public List<FarmDto.FarmMember> getAllFarmMembers() {
-        return farmRepository.findAllFarmMembers();
+    public List<FarmMemberEntity> getAllFarmMembers() {
+        return farmMemberRepository.findAll();
     }
 }
