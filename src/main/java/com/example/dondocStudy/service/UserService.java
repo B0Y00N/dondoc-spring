@@ -14,5 +14,5 @@ public interface UserService {
 
     // 월간 히스토리 어카징...??
     // 전체 월간 히스토리 조회
-    // List<MonthlyHistoryDto> findAllMonthlyHistories();
+    List<MonthlyHistoryDto> findAllMonthlyHistories();
 }
