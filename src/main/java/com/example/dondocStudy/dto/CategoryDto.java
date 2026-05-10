@@ -4,13 +4,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-public class FarmDto {
+public class CategoryDto {
     // PK
     private Long id;
 
     private String name;
-
-    @JsonProperty("created_at")
-    private String createdAt;
+    private String icon;
+    private String type;
 }
-
