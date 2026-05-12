@@ -2,6 +2,7 @@ package com.example.dondocStudy.service;
 
 import com.example.dondocStudy.dto.MonthlyHistoryDto;
 import com.example.dondocStudy.dto.UserDto;
+import com.example.dondocStudy.dto.auth.LoginRequest;
 import com.example.dondocStudy.entity.UserEntity;
 import com.example.dondocStudy.mapper.MonthlyHistoryMapper;
 import com.example.dondocStudy.mapper.UserMapper;
@@ -21,6 +22,15 @@ public class UserServiceImpl implements UserService{
     private final MonthlyHistoryRepository monthlyHistoryRepository;
     private final UserMapper userMapper;
     private final MonthlyHistoryMapper monthlyHistoryMapper;
+
+    @Override
+    public boolean login(LoginRequest loginRequest) {
+        return userRepository.findByUserId(loginRequest.getUserId())
+                .map(userEntity -> {
+                    return userEntity.getUserPassword().equals(loginRequest.getUserPassword());
+                })
+                .orElse(false);
+    }
 
     @Override
     public UserDto join(UserDto userDto) {

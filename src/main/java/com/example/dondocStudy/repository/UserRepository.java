@@ -2,6 +2,7 @@ package com.example.dondocStudy.repository;
 
 import com.example.dondocStudy.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -20,6 +22,18 @@ public class UserRepository{
     private final RowMapper<UserEntity> userRowMapper = new BeanPropertyRowMapper<>(UserEntity.class);
 
     public List<UserEntity> findAll() { return jdbcTemplate.query("select * from users", userRowMapper); }
+
+    public Optional<UserEntity> findByUserId(String userId) {
+        String sql = "SELECT * FROM users WHERE user_id = ?";
+
+        try {
+            // 표준 JdbcTemplate의 queryForObject 순서는 (String, RowMapper, Object... args)
+            UserEntity user = jdbcTemplate.queryForObject(sql, userRowMapper, userId);
+            return Optional.ofNullable(user);
+        } catch (EmptyResultDataAccessException e) {
+            return Optional.empty();
+        }
+    }
 
     public  UserEntity save(UserEntity userEntity) {
         String sql = """
