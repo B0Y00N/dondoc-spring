@@ -1,7 +1,8 @@
 package com.example.dondocStudy.controller;
 
+import com.example.dondocStudy.dto.CategoryDto;
 import com.example.dondocStudy.dto.RecordDto;
-import com.example.dondocStudy.repository.RecordRepository;
+import com.example.dondocStudy.service.RecordService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -16,17 +17,17 @@ import java.util.List;
 @RequestMapping("/api/records") // 공통 경로 설정
 @RequiredArgsConstructor
 public class RecordController {
-    private final RecordRepository recordRepository;
+    private final RecordService recordService;
 
     @Operation(summary = "카테고리 목록 조회")
     @GetMapping("/categories")
-    public List<RecordDto.CategoryInfo> getAllCategories() {
-        return recordRepository.findAllCategories();
+    public List<CategoryDto> getAllCategories() {
+        return recordService.findAllCategories();
     }
 
     @Operation(summary = "가계부 내역 조회")
     @GetMapping("")
-    public List<RecordDto.Info> getAllRecords() {
-        return recordRepository.findAllRecords();
+    public List<RecordDto> getAllRecords() {
+        return recordService.findAllRecords();
     }
 }
